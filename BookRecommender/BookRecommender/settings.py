@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'recommender'
+    'recommender',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -90,8 +91,8 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'recommendations',
-        'USER': 'admin',
+        'NAME': 'recommender',
+        'USER': 'postgres',
         'PASSWORD': 'zipcode',
         'HOST': '127.0.0.1',
         'PORT': '5432',
