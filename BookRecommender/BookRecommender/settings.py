@@ -74,15 +74,19 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql'
-        'NAME': 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql'
+#         'NAME': 
 
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#     }
+# }
+
+# Commented out SQlite and added Postgresql, using newest release of psycopg, version 3
+# Nvm, 3 has changes that aren't reflected in Django yet, back to 2.
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
