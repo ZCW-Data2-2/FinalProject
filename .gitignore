@@ -1,0 +1,14 @@
+Pipfile
+Pipfile.lock
+
+#Virtual environments
+
+venv
+penv
+environments
+env
+
+
+
+.idea
+workspace.xml
