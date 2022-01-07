@@ -16,8 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from accounts.views import (
+    login_view,
+    logout_view,
+    register_view
+)
+from .views import HomePageView
+
 urlpatterns = [
-    # path(''), 
+    path('', HomePageView.as_view(), name='home.html'),
     path('admin/', admin.site.urls),
+    path('login/', login_view),
+    path('logout/', logout_view),
+    path('register/', register_view),
     path('recommender/', include('recommender.urls')),
 ]
