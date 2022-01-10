@@ -12,3 +12,6 @@ env
 
 .idea
 workspace.xml
+
+# for secret key
+.env
