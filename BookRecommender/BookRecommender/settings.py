@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recommender',
-    'bootstrap4',
+    # 'bootstrap4',
     'accounts',
 ]
 
@@ -149,7 +149,7 @@ STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 # http://whitenoise.evans.io/en/stable/django.html#add-compression-and-caching-support
 
 # Commented out for whitenoise error
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # DJANGO-CRISPY-FORMS CONFIGS
 # ------------------------------------------------------------------------------
