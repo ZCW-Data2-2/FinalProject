@@ -1,1 +1,0 @@
-# For customizing built in django registration form if needed.
