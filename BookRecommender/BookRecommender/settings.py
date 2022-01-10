@@ -123,10 +123,11 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 
 # Meant to allow for Heroku to find it's db while also allowing for sqlite locally
 # Must have .env locally to use!
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-DATABASES['default'] = dj_database_url.config(default='postgres://...')
-DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
+}
+# DATABASES['default'] = dj_database_url.config(default='postgres://...')
+# DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
 
 
 # Password validation
