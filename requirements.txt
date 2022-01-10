@@ -7,3 +7,4 @@ psycopg2==2.9.3
 requests==2.27.0
 sqlparse==0.4.2
 urllib3==1.26.7
+whitenoise==5.3.0
