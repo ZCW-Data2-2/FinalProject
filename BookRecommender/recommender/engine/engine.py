@@ -3,9 +3,58 @@ import pandas as pd
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 
-rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-book = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+import boto3
+import os
+from dotenv import load_dotenv, find_dotenv
+
+# rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+# user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+# book = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+dotenv_file = os.path.join(BASE_DIR, ".env")
+
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
+load_dotenv(find_dotenv())
+# Creating the low level functional client AWS S3
+client = boto3.client(
+    's3',
+    aws_access_key_id = os.environ['aws_access_key_id'],
+    aws_secret_access_key = os.environ['aws_secret_access_key'],
+    region_name = 'us-east-1'
+)
+    
+# Creating the high level object oriented interface AWS S3
+resource = boto3.resource(
+    's3',
+    aws_access_key_id = os.environ['aws_access_key_id'],
+    aws_secret_access_key = os.environ['aws_secret_access_key'],
+    region_name = 'us-east-1'
+)
+
+
+# Create the S3 object
+rawrating = client.get_object(
+    Bucket = 'bookrecommender-22',
+    Key = 'BX-Book-Ratings.csv'
+)
+rawuser = client.get_object(
+    Bucket = 'bookrecommender-22',
+    Key = 'BX-Users.csv'
+)
+rawbook = client.get_object(
+    Bucket = 'bookrecommender-22',
+    Key = 'BX-Books.csv'
+)
+
+# Read data from the S3 object
+rating = pd.read_csv(rawrating['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+user = pd.read_csv(rawuser['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+book = pd.read_csv(rawbook['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+
+
 
 book_rating = pd.merge(rating, book, on='ISBN')
 cols = ['Year-Of-Publication', 'Publisher', 'Book-Author', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
