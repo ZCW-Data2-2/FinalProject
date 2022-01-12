@@ -1,2 +1,0 @@
-# FinalProject
-Christine / Tom / Efe
