@@ -7,7 +7,7 @@ penv
 environments
 env
 
-Pipfile.lock
+
 .DS_Store
 
 .idea
