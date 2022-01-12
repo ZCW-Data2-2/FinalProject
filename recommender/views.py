@@ -9,9 +9,9 @@ from django.views.generic import TemplateView
 #     template_name = '_base.html'
 
 # placeholder
-# def index(request):
-#     return HttpResponse("Hello, would you like to read a book?")
+def index(request):
+    return HttpResponse("Hello, would you like to read a book?")
 
 
-class HomePageView(TemplateView):
-    template_name = 'recommender/app.html'
+# class HomePageView(TemplateView):
+#     template_name = 'recommender/app.html'
