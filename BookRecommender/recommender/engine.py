@@ -1,3 +1,4 @@
+import io
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -6,6 +7,8 @@ from sklearn.preprocessing import MinMaxScaler
 import boto3
 import os
 from dotenv import load_dotenv, find_dotenv
+from io import StringIO, BytesIO
+import dotenv
 
 # rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 # user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
@@ -33,26 +36,51 @@ resource = boto3.resource(
     aws_secret_access_key = os.environ['aws_secret_access_key'],
     region_name = 'us-east-1'
 )
+# ALternative method
+bucket_name = 'bookrecommender-22'
 
+rating_object_key = (r"BX-Book-Ratings.csv")
+user_object_key = (r"BX-Users.csv")
+book_object_key = (r"BX-Books.csv")
+
+rating_csv_obj = client.get_object(Bucket=bucket_name, Key=rating_object_key)
+user_csv_obj = client.get_object(Bucket=bucket_name, Key=user_object_key)
+book_csv_obj = client.get_object(Bucket=bucket_name, Key=book_object_key)
+
+# rating_body = rating_csv_obj['Body']
+# user_body = user_csv_obj['Body']
+# book_body = book_csv_obj['Body']
+
+rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
+user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
+book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
+
+# rating_csv_string = rating_body.read().decode('utf-8')
+# user_csv_string = user_body.read().decode('utf-8')
+# book_csv_string = book_body.read().decode('utf-8')
+
+# rating = pd.read_csv(StringIO(rating_csv_string))
+# user = pd.read_csv(StringIO(user_csv_string))
+# book = pd.read_csv(StringIO(book_csv_string))
 
 # Create the S3 object
-rawrating = client.get_object(
-    Bucket = 'bookrecommender-22',
-    Key = 'BX-Book-Ratings.csv'
-)
-rawuser = client.get_object(
-    Bucket = 'bookrecommender-22',
-    Key = 'BX-Users.csv'
-)
-rawbook = client.get_object(
-    Bucket = 'bookrecommender-22',
-    Key = 'BX-Books.csv'
-)
+# rawrating = client.get_object(
+#     Bucket = 'bookrecommender-22',
+#     Key = 'BX-Book-Ratings.csv'
+# )
+# rawuser = client.get_object(
+#     Bucket = 'bookrecommender-22',
+#     Key = 'BX-Users.csv'
+# )
+# rawbook = client.get_object(
+#     Bucket = 'bookrecommender-22',
+#     Key = 'BX-Books.csv'
+# )
 
 # Read data from the S3 object
-rating = pd.read_csv(rawrating['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
-user = pd.read_csv(rawuser['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
-book = pd.read_csv(rawbook['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+# rating = pd.read_csv(rawrating['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+# user = pd.read_csv(rawuser['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
+# book = pd.read_csv(rawbook['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
 
 
 
