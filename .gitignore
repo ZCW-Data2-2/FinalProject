@@ -1,3 +1,4 @@
+
 BX-Book-Ratings.csv
 BX-Books.csv
 BX-Users.csv
@@ -14,3 +15,27 @@ pipeline.py
 test.py
 test2.py
 
+
+#Virtual environments
+
+venv
+penv
+environments
+env
+
+
+
+.idea
+workspace.xml
+
+# for secret key
+.env
+
+# for data files
+
+data/
+
+db.sqlite3
+
+datasets/
+scripts/
