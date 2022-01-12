@@ -39,29 +39,31 @@ resource = boto3.resource(
 # ALternative method
 bucket_name = 'bookrecommender-22'
 
-rating_object_key = (r"BX-Book-Ratings.csv")
-user_object_key = (r"BX-Users.csv")
-book_object_key = (r"BX-Books.csv")
+rating_object_key = ("BX-Book-Ratings.csv")
+user_object_key = ("BX-Users.csv")
+book_object_key = ("BX-Books.csv")
 
 rating_csv_obj = client.get_object(Bucket=bucket_name, Key=rating_object_key)
 user_csv_obj = client.get_object(Bucket=bucket_name, Key=user_object_key)
 book_csv_obj = client.get_object(Bucket=bucket_name, Key=book_object_key)
 
-# rating_body = rating_csv_obj['Body']
-# user_body = user_csv_obj['Body']
-# book_body = book_csv_obj['Body']
+rating_body = rating_csv_obj['Body']
+user_body = user_csv_obj['Body']
+book_body = book_csv_obj['Body']
 
-rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
-user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
-book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
+# rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
+# user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
+# book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
 
-# rating_csv_string = rating_body.read().decode('utf-8')
-# user_csv_string = user_body.read().decode('utf-8')
-# book_csv_string = book_body.read().decode('utf-8')
+# Removed below line
+# .splitlines(True)
+rating_csv_string = rating_body.read().decode('ISO-8859-1')
+user_csv_string = user_body.read().decode('ISO-8859-1')
+book_csv_string = book_body.read().decode('ISO-8859-1')
 
-# rating = pd.read_csv(StringIO(rating_csv_string))
-# user = pd.read_csv(StringIO(user_csv_string))
-# book = pd.read_csv(StringIO(book_csv_string))
+rating = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
+user = pd.read_csv(StringIO(user_csv_string), sep=';', error_bad_lines=False)
+book = pd.read_csv(StringIO(book_csv_string), sep=';', error_bad_lines=False)
 
 # Create the S3 object
 # rawrating = client.get_object(
