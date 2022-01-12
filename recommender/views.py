@@ -11,3 +11,7 @@ from django.views.generic import TemplateView
 # placeholder
 def index(request):
     return HttpResponse("Hello, would you like to read a book?")
+
+
+# class HomePageView(TemplateView):
+#     template_name = 'recommender/app.html'

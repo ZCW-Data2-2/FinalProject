@@ -1,5 +1,4 @@
-Pipfile
-Pipfile.lock
+
 
 #Virtual environments
 
@@ -9,9 +8,16 @@ environments
 env
 
 
+.DS_Store
 
 .idea
 workspace.xml
 
 # for secret key
 .env
+
+# for data files
+
+data/
+
+db.sqlite3

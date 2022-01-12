@@ -6,10 +6,11 @@ Book recommendation system that will identify similiar user behaviors and make r
 <b>Using:</br></b>
 Django</br>
 Postgresql</br>
-Airflow
+AWS S3</br>
+Heroku</br>
 
-
-
+Maintanance version deployed to:
+https://bookrecommender22.herokuapp.com/
 
 
 ![Alt text](final.png?raw=true "Title")
