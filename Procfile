@@ -1,3 +1,3 @@
-web: gunicorn BookRecommender/BookRecommender.wsgi
+web: gunicorn BookRecommender.wsgi
 
 heroku ps:scale web=1
