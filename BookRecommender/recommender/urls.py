@@ -7,3 +7,4 @@ urlpatterns = [
      path('', views.index, name='app.html'),
 #     path('', HomePageView.as_view(), name='home-view'),
 ]
+
