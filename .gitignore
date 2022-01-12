@@ -2,3 +2,15 @@ BX-Book-Ratings.csv
 BX-Books.csv
 BX-Users.csv
 engine.py
+
+.idea/
+datasets/
+scripts/
+tests/
+
+engine_ec.ipynb
+
+pipeline.py
+test.py
+test2.py
+
