@@ -5,8 +5,23 @@
 
 {% block content %}
     <center>
-    <h1>Search for books...</h1>
-
+        <form class="d-flex" method="POST" action="{% url 'search-books' %}">
+            {% csrf_token %}
+            <input class="form-control me-2"
+             type="search" placeholder="Search Books" aria-label="Search" name="searched">
+             <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+    
+<!-- We need the "book" model created and database running -->
+    {% if searched %}
+        <h1>Search for {{ searched }}</h1>
+        <br/>
+        {% for book in books %}
+            <a href="{% url 'search-books' book.id %}">{{ book }}</a><br/>
+        {% endfor %}
+    {% else %}
+        <h1>You forgot to search a book...</h1>
+    {% endif %}
     
     <center>
 {% endblock content %}

@@ -21,7 +21,7 @@ from accounts.views import (
     logout_view,
     register_view
 )
-from .views import HomePageView
+from .views import HomePageView, SearchBooksView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home.html'),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('logout/', logout_view),
     path('register/', register_view),
     path('recommender/', include('recommender.urls')),
+    path('search_books/', SearchBooksView.as_view(), name='search_books.html'),
 ]

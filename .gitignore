@@ -10,11 +10,14 @@ scripts/
 tests/
 
 engine_ec.ipynb
+engine.ipynb
+
 
 pipeline.py
 test.py
 test2.py
 
+db.sqlite3
 
 #Virtual environments
 
@@ -22,11 +25,36 @@ venv
 penv
 environments
 env
+finalbooks/
+
 
 
 .DS_Store
 
-.idea
+accounts/
+BookRecommender/
+static/
+staticfiles/
+manage.py
+recommender/__pycache__/
+recommender/migrations/
+recommender/__init__.py
+recommender/admin.py
+recommender/apps.py
+recommender/engine.py
+recommender/forms.py
+recommender/tests.py
+
+templates/accounts/
+templates/recommender/
+
+Pipfile
+Pipfile.lock
+Procfile
+README.md
+requirements.txt
+runtime.txt
+
 workspace.xml
 
 # for secret key
