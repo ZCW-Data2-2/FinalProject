@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import requests
 
 from django.views.generic import TemplateView
-from .models import Book
+from .models import recommender_book
 
 # class HomePageView(TemplateView):
 #     template_name = '_base.html'
@@ -15,7 +15,7 @@ def index(request):
 def search_books(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        books = Book.objects.filter(name__contains=searched)
+        books = recommender_book.objects.filter(UserID=searched)
         return render(request, 'search_books.html',
                         {'searched': searched,
                          'books': books})

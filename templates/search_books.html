@@ -14,13 +14,13 @@
     
 <!-- We need the "book" model created and database running -->
     {% if searched %}
-        <h1>Search for {{ searched }}</h1>
+        <h1>Searched for {{ searched }}</h1>
         <br/>
         {% for book in books %}
-            <a href="{% url 'search-books' book.id %}">{{ book }}</a><br/>
+            {{ book }}<br/>
         {% endfor %}
     {% else %}
-        <h1>You forgot to search a book...</h1>
+        <h1>You forgot to search for a book...</h1>
     {% endif %}
     
     <center>
