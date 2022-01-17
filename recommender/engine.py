@@ -1,92 +1,12 @@
-import io
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 
-import boto3
-import os
-from dotenv import load_dotenv, find_dotenv
-from io import StringIO, BytesIO
-import dotenv
-
-# rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-# user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-# book = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-dotenv_file = os.path.join(BASE_DIR, ".env")
-
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
-
-load_dotenv(find_dotenv())
-# Creating the low level functional client AWS S3
-client = boto3.client(
-    's3',
-    aws_access_key_id = os.environ['aws_access_key_id'],
-    aws_secret_access_key = os.environ['aws_secret_access_key'],
-    region_name = 'us-east-1'
-)
-    
-# Creating the high level object oriented interface AWS S3
-resource = boto3.resource(
-    's3',
-    aws_access_key_id = os.environ['aws_access_key_id'],
-    aws_secret_access_key = os.environ['aws_secret_access_key'],
-    region_name = 'us-east-1'
-)
-# ALternative method
-bucket_name = 'bookrecommender-22'
-
-rating_object_key = ("BX-Book-Ratings.csv")
-user_object_key = ("BX-Users.csv")
-book_object_key = ("BX-Books.csv")
-
-rating_csv_obj = client.get_object(Bucket=bucket_name, Key=rating_object_key)
-user_csv_obj = client.get_object(Bucket=bucket_name, Key=user_object_key)
-book_csv_obj = client.get_object(Bucket=bucket_name, Key=book_object_key)
-
-rating_body = rating_csv_obj['Body']
-user_body = user_csv_obj['Body']
-book_body = book_csv_obj['Body']
-
-# rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
-# user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
-# book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
-
-# Removed below line
-# .splitlines(True)
-
-def runengine(user_id):
-    rating_csv_string = rating_body.read().decode('ISO-8859-1')
-    user_csv_string = user_body.read().decode('ISO-8859-1')
-    book_csv_string = book_body.read().decode('ISO-8859-1')
-
-    rating = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
-    user = pd.read_csv(StringIO(user_csv_string), sep=';', error_bad_lines=False)
-    book = pd.read_csv(StringIO(book_csv_string), sep=';', error_bad_lines=False)
-
-    # Create the S3 object
-    # rawrating = client.get_object(
-    #     Bucket = 'bookrecommender-22',
-    #     Key = 'BX-Book-Ratings.csv'
-    # )
-    # rawuser = client.get_object(
-    #     Bucket = 'bookrecommender-22',
-    #     Key = 'BX-Users.csv'
-    # )
-    # rawbook = client.get_object(
-    #     Bucket = 'bookrecommender-22',
-    #     Key = 'BX-Books.csv'
-    # )
-
-    # Read data from the S3 object
-    # rating = pd.read_csv(rawrating['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
-    # user = pd.read_csv(rawuser['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
-    # book = pd.read_csv(rawbook['Body'], sep=';', error_bad_lines=False, encoding="latin-1")
-
-
+def runEngine(user_id):
+    rating = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    user = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    book = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 
     book_rating = pd.merge(rating, book, on='ISBN')
     cols = ['Year-Of-Publication', 'Publisher', 'Book-Author', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
@@ -120,12 +40,6 @@ def runengine(user_id):
 
     scaler = MinMaxScaler()
     combined['Book-Rating'] = combined['Book-Rating'].values.astype(float)
-
-
-    # Unique Books 5850
-    # Unique Users 3192
-
-    # Tenserflow begins 
     rating_scaled = pd.DataFrame(scaler.fit_transform(combined['Book-Rating'].values.reshape(-1,1)))
     combined['Book-Rating'] = rating_scaled
 
@@ -226,7 +140,13 @@ def runengine(user_id):
         top_ten_ranked = top_ten_ranked.sort_values(['User-ID', 'Book-Rating'], ascending=[True, False])
         top_ten_ranked = top_ten_ranked.groupby('User-ID').head(10)
 
-    result = (top_ten_ranked.loc[top_ten_ranked['User-ID'] == user_id])
 
-print(runengine(278582))    
-# print(top_ten_ranked.loc[top_ten_ranked['User-ID'] == 278582])    
+    result = top_ten_ranked.loc[top_ten_ranked['User-ID'] == user_id] #user_id #278582
+    print(result)
+    print(result['Book-Title'])
+
+    from sqlalchemy import create_engine
+    engine = create_engine('sqlite:////Users/cantekinefe/dev/FinalProject/db.sqlite3', echo=False)
+    result.to_sql('recommender_recommender_book', engine, if_exists='replace')
+
+runEngine(278582)
