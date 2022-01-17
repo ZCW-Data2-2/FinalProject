@@ -13,38 +13,38 @@ def runEngine(user_id):
     book_rating.drop(cols, axis=1, inplace=True)
 
     rating_count = (book_rating.
-        groupby(by = ['Book-Title'])['Book-Rating'].
+        groupby(by = ['BookTitle'])['BookRating'].
         count().
         reset_index().
-        rename(columns = {'Book-Rating': 'RatingCount_book'})
-        [['Book-Title', 'RatingCount_book']]
+        rename(columns = {'BookRating': 'RatingCount_book'})
+        [['BookTitle', 'RatingCount_book']]
         )
 
     threshold = 25
     rating_count = rating_count.query('RatingCount_book >= @threshold')
 
-    user_rating = pd.merge(rating_count, book_rating, left_on='Book-Title', right_on='Book-Title', how='left')
+    user_rating = pd.merge(rating_count, book_rating, left_on='BookTitle', right_on='BookTitle', how='left')
     user_count = (user_rating.
-        groupby(by = ['User-ID'])['Book-Rating'].
+        groupby(by = ['UserID'])['BookRating'].
         count().
         reset_index().
-        rename(columns = {'Book-Rating': 'RatingCount_user'})
-        [['User-ID', 'RatingCount_user']]
+        rename(columns = {'BookRating': 'RatingCount_user'})
+        [['UserID', 'RatingCount_user']]
         )
 
 
     threshold = 20
     user_count = user_count.query('RatingCount_user >= @threshold')
 
-    combined = user_rating.merge(user_count, left_on = 'User-ID', right_on = 'User-ID', how = 'inner')
+    combined = user_rating.merge(user_count, left_on = 'UserID', right_on = 'UserID', how = 'inner')
 
     scaler = MinMaxScaler()
-    combined['Book-Rating'] = combined['Book-Rating'].values.astype(float)
-    rating_scaled = pd.DataFrame(scaler.fit_transform(combined['Book-Rating'].values.reshape(-1,1)))
-    combined['Book-Rating'] = rating_scaled
+    combined['BookRating'] = combined['BookRating'].values.astype(float)
+    rating_scaled = pd.DataFrame(scaler.fit_transform(combined['BookRating'].values.reshape(-1,1)))
+    combined['BookRating'] = rating_scaled
 
-    combined = combined.drop_duplicates(['User-ID', 'Book-Title'])
-    user_book_matrix = combined.pivot(index='User-ID', columns='Book-Title', values='Book-Rating')
+    combined = combined.drop_duplicates(['UserID', 'BookTitle'])
+    user_book_matrix = combined.pivot(index='UserID', columns='BookTitle', values='BookRating')
     user_book_matrix.fillna(0, inplace=True)
     users = user_book_matrix.index.tolist()
     books = user_book_matrix.columns.tolist()
@@ -53,7 +53,7 @@ def runEngine(user_id):
     import tensorflow.compat.v1 as tf
     tf.disable_v2_behavior()
 
-    num_input = combined['Book-Title'].nunique()
+    num_input = combined['BookTitle'].nunique()
     num_hidden_1 = 10
     num_hidden_2 = 5
 
@@ -127,23 +127,23 @@ def runEngine(user_id):
 
         pred_data = pred_data.append(pd.DataFrame(preds))
 
-        pred_data = pred_data.stack().reset_index(name='Book-Rating')
-        pred_data.columns = ['User-ID', 'Book-Title', 'Book-Rating']
-        pred_data['User-ID'] = pred_data['User-ID'].map(lambda value: users[value])
-        pred_data['Book-Title'] = pred_data['Book-Title'].map(lambda value: books[value])
+        pred_data = pred_data.stack().reset_index(name='BookRating')
+        pred_data.columns = ['UserID', 'BookTitle', 'BookRating']
+        pred_data['UserID'] = pred_data['UserID'].map(lambda value: users[value])
+        pred_data['BookTitle'] = pred_data['BookTitle'].map(lambda value: books[value])
         
-        keys = ['User-ID', 'Book-Title']
+        keys = ['UserID', 'BookTitle']
         index_1 = pred_data.set_index(keys).index
         index_2 = combined.set_index(keys).index
 
         top_ten_ranked = pred_data[~index_1.isin(index_2)]
-        top_ten_ranked = top_ten_ranked.sort_values(['User-ID', 'Book-Rating'], ascending=[True, False])
-        top_ten_ranked = top_ten_ranked.groupby('User-ID').head(10)
+        top_ten_ranked = top_ten_ranked.sort_values(['UserID', 'BookRating'], ascending=[True, False])
+        top_ten_ranked = top_ten_ranked.groupby('UserID').head(10)
 
 
-    result = top_ten_ranked.loc[top_ten_ranked['User-ID'] == user_id] #user_id #278582
+    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] #user_id #278582
     print(result)
-    print(result['Book-Title'])
+    print(result['BookTitle'])
 
     from sqlalchemy import create_engine
     engine = create_engine('sqlite:////Users/cantekinefe/dev/FinalProject/db.sqlite3', echo=False)
