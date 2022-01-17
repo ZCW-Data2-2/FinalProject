@@ -5,6 +5,8 @@ import requests
 from django.views.generic import TemplateView
 from .models import recommender_book
 
+from .engine import runEngine
+
 # class HomePageView(TemplateView):
 #     template_name = '_base.html'
 
@@ -15,6 +17,8 @@ def index(request):
 def search_books(request):
     if request.method == "POST":
         searched = request.POST['searched']
+        searched = int(searched)
+        runEngine(searched)
         books = recommender_book.objects.filter(UserID=searched)
         return render(request, 'search_books.html',
                         {'searched': searched,
