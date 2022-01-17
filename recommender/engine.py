@@ -141,7 +141,7 @@ def runEngine(user_id):
         top_ten_ranked = top_ten_ranked.groupby('UserID').head(10)
 
 
-    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] #user_id #278582
+    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] 
     result.insert(0, "id",1, allow_duplicates = False)
     print(result)
     print(result['BookTitle'])

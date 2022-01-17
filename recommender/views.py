@@ -16,12 +16,12 @@ def index(request):
 
 def search_books(request):
     if request.method == "POST":
-        searched = request.POST['searched']
-        searched = int(searched)
-        runEngine(searched)
-        books = recommender_book.objects.filter(UserID=searched)
+        search_ui = request.POST['searched']
+        search_ui = int(search_ui)
+        runEngine(search_ui)
+        books = recommender_book.objects.filter(UserID=search_ui)
         return render(request, 'search_books.html',
-                        {'searched': searched,
+                        {'searched': search_ui,
                          'books': books})
     else:
         return render(request, 'search_books.html', {})
