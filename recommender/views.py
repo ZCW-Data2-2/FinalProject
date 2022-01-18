@@ -5,8 +5,11 @@ import requests
 from django.views.generic import TemplateView
 from .models import recommender_book
 
-# class HomePageView(TemplateView):
-#     template_name = '_base.html'
+class HomePageView(TemplateView):
+    template_name = 'home.html'
+
+class AboutPageView(TemplateView):
+    template_name = 'about.html'
 
 # placeholder
 def index(request):
@@ -23,7 +26,3 @@ def search_books(request):
         return render(request, 'search_books.html', {})
 
 
-
-
-# class HomePageView(TemplateView):
-#     template_name = 'recommender/app.html'
