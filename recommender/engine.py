@@ -141,7 +141,10 @@ def runEngine(user_id):
         top_ten_ranked = top_ten_ranked.groupby('UserID').head(10)
 
 
-    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] 
+
+
+    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] #user_id #278582
+
     result.insert(0, "id",1, allow_duplicates = False)
     print(result)
     print(result['BookTitle'])
@@ -150,4 +153,6 @@ def runEngine(user_id):
     engine = create_engine('sqlite:////Users/cantekinefe/dev/FinalProject/db.sqlite3', echo=False)
     result.to_sql('recommender_recommender_book', engine, if_exists='replace')
 
-# runEngine(278582)
+
+#runEngine(278582)
+
