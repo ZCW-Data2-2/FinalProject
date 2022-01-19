@@ -42,7 +42,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['bookrecommender22.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['bookrec2022.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
 
 # Security
 SECURE_SSL_REDIRECT = False
