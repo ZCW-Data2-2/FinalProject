@@ -16,8 +16,10 @@ import django_heroku
 import dj_database_url
 import dotenv
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
     # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     # dotenv_file = os.path.join(BASE_DIR, ".env")
@@ -35,10 +37,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
     # SECRET_KEY = os.environ['SECRET_KEY']
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
-SECRET_KEY = '43)%4yx)aa@a=+_c(fn&kf3g29xax+=+a&key9i=!98zyim=8j'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['bookrecommender22.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
 
@@ -100,11 +102,16 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
         # 'ENGINE': 'django.db.backends.postgresql'
         # 'NAME': 
