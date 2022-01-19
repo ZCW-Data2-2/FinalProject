@@ -4,9 +4,9 @@ import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 
 def runEngine(user_id):
-    rating = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    user = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    book = pd.read_csv('/Users/cantekinefe/dev/FinalProject/datasets/books/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    rating = pd.read_csv('data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    user = pd.read_csv('data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    book = pd.read_csv('data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 
     book_rating = pd.merge(rating, book, on='ISBN')
     cols = ['Year-Of-Publication', 'Publisher', 'Book-Author', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
@@ -150,7 +150,7 @@ def runEngine(user_id):
     print(result['BookTitle'])
 
     from sqlalchemy import create_engine
-    engine = create_engine('sqlite:////Users/cantekinefe/dev/FinalProject/db.sqlite3', echo=False)
+    engine = create_engine('sqlite:////Users/roethelchristine/FinalProject/db.sqlite3', echo=False)
     result.to_sql('recommender_recommender_book', engine, if_exists='replace')
 
 
