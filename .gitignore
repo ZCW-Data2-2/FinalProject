@@ -1,17 +1,4 @@
-.idea/
-datasets/
-scripts/
-tests/
-
-
-
-
-pipeline.py
-db.sqlite3
-
-
 #Virtual environments
-
 venv
 penv
 environments
@@ -22,14 +9,7 @@ finalbooks/
 
 .DS_Store
 
-accounts/
-
-
-
-Pipfile
-Pipfile.lock
-README.md
-
+.idea
 workspace.xml
 
 # for secret key
