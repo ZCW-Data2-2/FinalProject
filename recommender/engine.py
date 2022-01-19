@@ -3,10 +3,63 @@ import pandas as pd
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 
+import boto3
+import os
+from dotenv import load_dotenv, find_dotenv
+from io import StringIO, BytesIO
+import dotenv
+
+
+
 def runEngine(user_id):
-    rating = pd.read_csv('data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    user = pd.read_csv('data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    book = pd.read_csv('data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+
+    # Creating the low level functional client AWS S3
+    client = boto3.client(
+        's3',
+        aws_access_key_id = os.environ['aws_access_key_id'],
+        aws_secret_access_key = os.environ['aws_secret_access_key'],
+        region_name = 'us-east-1'
+    )
+        
+    # Creating the high level object oriented interface AWS S3
+    resource = boto3.resource(
+        's3',
+        aws_access_key_id = os.environ['aws_access_key_id'],
+        aws_secret_access_key = os.environ['aws_secret_access_key'],
+        region_name = 'us-east-1'
+    )
+    # ALternative method
+    bucket_name = 'bookrecommender-22'
+
+    rating_object_key = ("BX-Book-Ratings.csv")
+    user_object_key = ("BX-Users.csv")
+    book_object_key = ("BX-Books.csv")
+
+    rating_csv_obj = client.get_object(Bucket=bucket_name, Key=rating_object_key)
+    user_csv_obj = client.get_object(Bucket=bucket_name, Key=user_object_key)
+    book_csv_obj = client.get_object(Bucket=bucket_name, Key=book_object_key)
+
+    rating_body = rating_csv_obj['Body']
+    user_body = user_csv_obj['Body']
+    book_body = book_csv_obj['Body']
+
+    # rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
+    # user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
+    # book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
+
+    # Removed below line
+    # .splitlines(True)
+    rating_csv_string = rating_body.read().decode('ISO-8859-1')
+    user_csv_string = user_body.read().decode('ISO-8859-1')
+    book_csv_string = book_body.read().decode('ISO-8859-1')
+
+    rating = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
+    user = pd.read_csv(StringIO(user_csv_string), sep=';', error_bad_lines=False)
+    book = pd.read_csv(StringIO(book_csv_string), sep=';', error_bad_lines=False)
+
+    # rating = pd.read_csv('data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    # user = pd.read_csv('data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+    # book = pd.read_csv('data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 
     book_rating = pd.merge(rating, book, on='ISBN')
     cols = ['Year-Of-Publication', 'Publisher', 'Book-Author', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
