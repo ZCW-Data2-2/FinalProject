@@ -35,7 +35,7 @@ load_dotenv(find_dotenv())
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['bookrecommender22.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
 
