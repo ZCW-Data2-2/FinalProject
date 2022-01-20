@@ -1,0 +1,155 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+    <center>
+        
+<!-- Create Form -->
+<form action="{% url 'search-books' %}" method="POST">
+{% csrf_token %}
+    <br>
+
+    <!-- Fantasy -->
+    <div class="form-control">
+        <label for="humor" id="humorsel">
+            Humor:
+        </label>
+    
+        <!-- Dropdown options -->
+   
+        <select name="humor" id="humorsel">
+            <option value="" selected disabled hidden>Choose here</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+            <option value=6>6</option>
+            <option value=7>7</option>
+            <option value=8>8</option>
+            <option value=9>9</option>
+            <option value=10>10</option>
+          </select>
+       </div>
+          <br>
+
+    <!-- Horror -->
+    <div class="form-control">
+        <label for="horror" id="horrorsel">
+         Horror:
+        </label>
+ 
+        <!-- Dropdown options -->
+        
+        <!-- <label for="fantasysel"> Fantasy: </label> -->
+        <select name="horror" id="horrorsel">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
+     </div>
+        <br>
+
+    <!-- Romance -->
+    <div class="form-control">
+        <label for="romance" id="romancesel">
+         Romance:
+        </label>
+ 
+        <!-- Dropdown options -->
+        
+        <!-- <label for="fantasysel"> Fantasy: </label> -->
+        <select name="romance" id="romancesel">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
+     </div>
+        <br>
+
+    <!-- Adventure -->
+    <div class="form-control">
+        <label for="thriller" id="thrillersel">
+         Thriller:
+        </label>
+ 
+        <!-- Dropdown options -->
+        
+        <!-- <label for="fantasysel"> Fantasy: </label> -->
+        <select name="thriller" id="thrillersel">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
+     </div>
+        <br>
+
+    <!-- NonFiction -->
+    <div class="form-control">
+        <label for="nonfiction" id="nonfictionsel">
+         Non-Fiction:
+        </label>
+ 
+        <!-- Dropdown options -->
+        
+        <!-- <label for="fantasysel"> Fantasy: </label> -->
+        <select name="nonfiction" id="nonfictionsel">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
+     </div>
+        <br>
+
+    <input type="submit" value="Submit">
+        
+    
+</form>
+
+   <br>
+
+
+    {% if searched %}
+        <h2>Magically predicted from: </h2>
+        <p>{{ searched }}</p>
+        <br/>
+        {% for book in books %}
+            {{ book }}<br/>
+        {% endfor %}
+    {% else %}
+        <h1>You forgot to search for a book...</h1>
+    {% endif %}
+    <center>
+{% endblock content %}

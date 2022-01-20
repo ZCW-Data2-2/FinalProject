@@ -11,6 +11,9 @@ class HomePageView(TemplateView):
 class SearchBooksView(TemplateView):
     template_name = 'search_books.html'    
 
+class AppBooksView(TemplateView):
+    template_name = 'app.html'   
+
 # placeholder
 # def index(request):
 #     return HttpResponse("Hello, would you like to read a book?")

@@ -6,12 +6,16 @@ from django.views.generic import TemplateView
 from .models import recommender_book
 
 from .engine import runEngine
+from .coldengine import coldrunEngine
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
 class AboutPageView(TemplateView):
     template_name = 'about.html'
+
+# class AppPageView(TemplateView):
+#     template_name = 'app.html'
 
 # placeholder
 def index(request):
@@ -28,5 +32,28 @@ def search_books(request):
                          'books': books})
     else:
         return render(request, 'search_books.html', {})
+
+
+
+def app(request):
+    if request.method == "POST":
+        humor = request.POST['humor']
+        horror = request.POST['horror']
+        romance = request.POST['romance']
+        thriller = request.POST['thriller']
+        nonfiction = request.POST['nonfiction']
+        # search_ui = int(search_ui[1])
+        # print(humor)
+        # print(horror)
+        # print(romance)
+        # print(thriller)
+        # print(nonfiction)
+        coldrunEngine(humor, horror, romance, thriller, nonfiction)
+        books = recommender_book.objects.filter(UserID=1)
+        return render(request, 'app.html',
+                        {'searched': f"Humor: {humor}\nHorror: {horror}\nRomance: {romance}\n Thriller: {thriller}\n Non-Fiction: {nonfiction}\n",
+                         'books': books})
+    else:
+        return render(request, 'app.html', {})
 
 
