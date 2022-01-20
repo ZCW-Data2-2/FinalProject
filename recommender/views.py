@@ -29,38 +29,38 @@ def index(request):
 
 def search_books(request):
     if request.method == "POST":
-        fantasy = request.POST['fantasy']
+        humor = request.POST['humor']
         horror = request.POST['horror']
         romance = request.POST['romance']
-        adventure = request.POST['adventure']
+        thriller = request.POST['thriller']
         nonfiction = request.POST['nonfiction']
         # search_ui = int(search_ui[1])
-        print(fantasy)
-        print(horror)
-        print(romance)
-        print(adventure)
-        print(nonfiction)
-        runEngine(fantasy, horror, romance, adventure, nonfiction)
-    #     books = recommender_book.objects.filter(UserID=search_ui)
-        return render(request, 'search_books.html')
-    #                     {'searched': search_ui,
-    #                      'books': books})
-    else:
-        return render(request, 'search_books.html', {})
-
-def cold_input(request):
-    if request.method == "POST":
-
-        cold = request.POST['fantasy']
-        print(cold)
-        s = int(search_ui)
-        runEngine(search_ui)
-        books = recommender_book.objects.filter(UserID=search_ui)
+        # print(humor)
+        # print(horror)
+        # print(romance)
+        # print(thriller)
+        # print(nonfiction)
+        runEngine(humor, horror, romance, thriller, nonfiction)
+        books = recommender_book.objects.filter(UserID=1)
         return render(request, 'search_books.html',
-                        {'searched': search_ui,
+                        {'searched': "Here you go!",
                          'books': books})
     else:
         return render(request, 'search_books.html', {})
+
+# def cold_input(request):
+#     if request.method == "POST":
+
+#         cold = request.POST['fantasy']
+#         print(cold)
+#         s = int(search_ui)
+#         runEngine(search_ui)
+#         books = recommender_book.objects.filter(UserID=search_ui)
+#         return render(request, 'search_books.html',
+#                         {'searched': search_ui,
+#                          'books': books})
+#     else:
+#         return render(request, 'search_books.html', {})
 
 # cold_input(5)
 # class HomePageView(TemplateView):

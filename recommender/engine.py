@@ -9,6 +9,8 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from io import StringIO
 import dotenv
+
+# from BookRecommender.settings import DATABASES
 # from .views import fantasysel
 
 # import cgi
@@ -22,21 +24,26 @@ import dotenv
 # print(fantasy)
 # print(horror)
 
-horrorbooks= [
-    (1, "Rose Madder", 5),
-    (1, "Bag of Bones", 5),
-    (1, "Intensity", 193),
-    (1, "The Tale of the Body Thief (Vampire Chronicles...)", 193),
-    (1, "Prey: A Novel", 191),
-]
+# horrorbooks= [
+#     # Rose Madder
+#     [1, "0451186362", horror],
+#     # Bag of Bones
+#     [1, "067102423X", horror],
+#     # Intensity
+#     [1, "0345384369", horror],
+#     # The Tale of the Body Thief (Vampire Chronicles...)
+#     [1, "034538475X", horror],
+#     # Prey: A Novel
+#     [1, "0066214122", horror],
+# ]
 
-thrillerbooks= [
-    (175510, "The Angel of Darkness", 200),
-    (32206, "Cat &amp; Mouse (Alex Cross Novels)", 198),
-    (193259, "The Jester", 194),
-    (207582, "The Simple Truth", 197),
-    (184212, "The Deep End of the Ocean", 196),
-]
+# thrillerbooks= [
+#     (175510, "The Angel of Darkness", 200),
+#     (32206, "Cat &amp; Mouse (Alex Cross Novels)", 198),
+#     (193259, "The Jester", 194),
+#     (207582, "The Simple Truth", 197),
+#     (184212, "The Deep End of the Ocean", 196),
+# ]
 
 
 # rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
@@ -45,7 +52,7 @@ thrillerbooks= [
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
-def runEngine(fantasy, horror, romance, adventure, nonfiction):
+def runEngine(humor, horror, romance, thriller, nonfiction):
     if os.path.isfile(dotenv_file):
         dotenv.load_dotenv(dotenv_file)
 
@@ -94,20 +101,64 @@ def runEngine(fantasy, horror, romance, adventure, nonfiction):
     user_csv_string = user_body.read().decode('ISO-8859-1')
     book_csv_string = book_body.read().decode('ISO-8859-1')
 
-    rating = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
+    rating0 = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
     
-    horrorbooks= [
-    [1, "Rose Madder", horror],
-    [1, "Bag of Bones", horror],
-    [1, "Intensity", horror],
-    [1, "The Tale of the Body Thief (Vampire Chronicles...)", horror],
-    [1, "Prey: A Novel", horror],
-]
-    rating.append(horrorbooks)
+    # Append user input
+    coldbooks= [
+        # The Amazing Adventures of Kavalier & Clay
+        [1, "0312282990", humor],
+        # The Bonfire of the Vanities
+        [1, "0553275976", humor],
+        # Naked
+        [1, "0316777730", humor],
+        # Shopaholic Takes Manhattan (Summer Display Opp... 
+        [1, "0385335881", humor],
+        # Good Omens
+        [1, "0441003257", humor],
+        # Rose Madder
+        [1, "0451186362", horror],
+        # Bag of Bones
+        [1, "067102423X", horror],
+        # Intensity
+        [1, "0345384369", horror],
+        # The Tale of the Body Thief (Vampire Chronicles...)
+        [1, "034538475X", horror],
+        # Prey: A Novel
+        [1, "0066214122", horror],
+        # The Crimson Petal and the White
+        [1, "015100692X", romance],
+        # Cold Mountain 
+        [1, "1400077826", romance],
+        # Sea Glass: A Novel
+        [1, "0316089699", romance],
+        # The Switch
+        [1, "0446609943", romance],
+        # The Time Traveler's Wife
+        [1, "193156146X", romance],
+        # The Angel of Darkness
+        [1, "0345427637", thriller],
+        # Riptide
+        [1, "0515130966", thriller],
+        # The Jester
+        [1, "0316602051", thriller],
+        # The Simple Truth
+        [1, "0446607711", thriller],
+        # The Deep End of the Ocean
+        [1, "0670865796", thriller],
+        # I Know Why the Caged Bird Sings
+        [1, "0553279378", nonfiction],
+        # The Diary of a Young Girl: Anne Frank
+        [1, "0553296981", nonfiction],
+        # Into the Wild
+        [1, "0385486804", nonfiction],
+        # Rich Dad Poor Dad
+        [1, "0446677450", nonfiction],
+        # Seabiscuit
+        [1, "0449005615", nonfiction],
+    ]
 
-    # Get into dataframe
-    # rating.append(fantasysel)
-    
+    rating = rating0.append(pd.DataFrame(coldbooks, columns=['UserID', 'ISBN', 'BookRating']))
+
     user = pd.read_csv(StringIO(user_csv_string), sep=';', error_bad_lines=False)
     book = pd.read_csv(StringIO(book_csv_string), sep=';', error_bad_lines=False)
 
@@ -180,8 +231,6 @@ def runEngine(fantasy, horror, romance, adventure, nonfiction):
     users = user_book_matrix.index.tolist()
     books = user_book_matrix.columns.tolist()
     user_book_matrix = user_book_matrix.to_numpy()
-
-    users.append()
 
     import tensorflow.compat.v1 as tf
     tf.disable_v2_behavior()
@@ -273,21 +322,44 @@ def runEngine(fantasy, horror, romance, adventure, nonfiction):
 
         top_ten_ranked = pred_data[~index_1.isin(index_2)]
         top_ten_ranked = top_ten_ranked.sort_values(['UserID', 'BookRating'], ascending=[True, False])
-        top_ten_ranked_head = top_ten_ranked.groupby('UserID').head(10)
+        top_ten_ranked = top_ten_ranked.groupby('UserID').head(10)
+
+    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == 1] #user_id #278582
+
+    result.insert(0, "id",1, allow_duplicates = False)
+    print(result)
+    print(result['BookTitle'])
+
+    from sqlalchemy import create_engine
+    engine = create_engine(os.environ['DATABASE_URL'], echo=False)
+    result.to_sql('recommender_recommender_book', engine, if_exists='replace')
 
 
-    prediction = (top_ten_ranked_head.loc[top_ten_ranked['UserID'] == 1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # prediction = (top_ten_ranked_head.loc[top_ten_ranked['UserID'] == 1])
 
     #import the relevant sql library 
-    from sqlalchemy import create_engine
-    from BookRecommender.settings import DATABASES
+    # from sqlalchemy import create_engine
+    # from BookRecommender.settings import DATABASES
 
     # link to your database
-    engine = create_engine(DATABASES['default'], echo = False)
+    # engine = create_engine(DATABASES['default'], echo = False)
 
     # attach the data frame (df) to the database with a name of the 
     # table; the name can be whatever you like
-    top_ten_ranked.to_sql('recommender', engine, if_exists='replace')
+    # top_ten_ranked.to_sql('recommender', engine, if_exists='replace')
     
     # run a quick test 
     # print(engine.execute(“SELECT * FROM recommender”).fetchmany(10))
