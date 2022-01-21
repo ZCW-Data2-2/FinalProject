@@ -59,7 +59,7 @@ https://www.kaggle.com/jirakst/bookcrossing</br>
 
 ## Flowchart
 Initial:</br>
-<img src="final.png" width="22%"></img></br></br>
+<img src="final.png"></img></br></br>
 
 Current:</br>
-<img src="flowchart2.jpeg" width="22%"></img>
+<img src="flowchart2.jpeg"></img>
