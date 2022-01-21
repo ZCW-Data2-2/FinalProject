@@ -1,3 +1,4 @@
+import io
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -6,12 +7,21 @@ from sklearn.preprocessing import MinMaxScaler
 import boto3
 import os
 from dotenv import load_dotenv, find_dotenv
-from io import StringIO, BytesIO
+from io import StringIO
 import dotenv
 
 
+# rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+# user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+# book = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def runEngine(user_id):
+dotenv_file = os.path.join(BASE_DIR, ".env")
+def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
+    if os.path.isfile(dotenv_file):
+        dotenv.load_dotenv(dotenv_file)
+
+    load_dotenv(find_dotenv())
 
     # Creating the low level functional client AWS S3
     client = boto3.client(
@@ -28,7 +38,9 @@ def runEngine(user_id):
         aws_secret_access_key = os.environ['aws_secret_access_key'],
         region_name = 'us-east-1'
     )
-    # ALternative method
+
+    # Load in the data from the CSV files in AWS S3 bucket
+# def runEngine(exampleuserid):
     bucket_name = 'bookrecommender-22'
 
     rating_object_key = ("BX-Book-Ratings.csv")
@@ -43,6 +55,7 @@ def runEngine(user_id):
     user_body = user_csv_obj['Body']
     book_body = book_csv_obj['Body']
 
+    # Alternative method
     # rating = pd.read_csv(io.BytesIO(rating_csv_obj['Body'].read()))
     # user = pd.read_csv(io.BytesIO(user_csv_obj['Body'].read()))
     # book = pd.read_csv(io.BytesIO(book_csv_obj['Body'].read()))
@@ -53,13 +66,80 @@ def runEngine(user_id):
     user_csv_string = user_body.read().decode('ISO-8859-1')
     book_csv_string = book_body.read().decode('ISO-8859-1')
 
-    rating = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
+    rating0 = pd.read_csv(StringIO(rating_csv_string), sep=';', error_bad_lines=False)
+    
+    # Append user input
+    coldbooks= [
+        # The Amazing Adventures of Kavalier & Clay
+        [1, "0312282990", humor],
+        # The Bonfire of the Vanities
+        [1, "0553275976", humor],
+        # Naked
+        [1, "0316777730", humor],
+        # Shopaholic Takes Manhattan (Summer Display Opp... 
+        [1, "0385335881", humor],
+        # Good Omens
+        [1, "0441003257", humor],
+        # Rose Madder
+        [1, "0451186362", horror],
+        # Bag of Bones
+        [1, "067102423X", horror],
+        # Intensity
+        [1, "0345384369", horror],
+        # The Tale of the Body Thief (Vampire Chronicles...)
+        [1, "034538475X", horror],
+        # Prey: A Novel
+        [1, "0066214122", horror],
+        # The Crimson Petal and the White
+        [1, "015100692X", romance],
+        # Cold Mountain 
+        [1, "1400077826", romance],
+        # Sea Glass: A Novel
+        [1, "0316089699", romance],
+        # The Switch
+        [1, "0446609943", romance],
+        # The Time Traveler's Wife
+        [1, "193156146X", romance],
+        # The Angel of Darkness
+        [1, "0345427637", thriller],
+        # Riptide
+        [1, "0515130966", thriller],
+        # The Jester
+        [1, "0316602051", thriller],
+        # The Simple Truth
+        [1, "0446607711", thriller],
+        # The Deep End of the Ocean
+        [1, "0670865796", thriller],
+        # I Know Why the Caged Bird Sings
+        [1, "0553279378", nonfiction],
+        # The Diary of a Young Girl: Anne Frank
+        [1, "0553296981", nonfiction],
+        # Into the Wild
+        [1, "0385486804", nonfiction],
+        # Rich Dad Poor Dad
+        [1, "0446677450", nonfiction],
+        # Seabiscuit
+        [1, "0449005615", nonfiction],
+        # Harry Potter Sorcerers Stone
+        [1, "059035342X", hp],
+        # Harry Potter CoS
+        [1, "0439064872", hp],
+        # Harry Potter PoA
+        [1, "0439136350", hp],
+        # Harry Potter Goblet of Fire
+        [1, "0439139597", hp],
+        # Harry Potter Order of the Pheonix
+        [1, "043935806X", hp],
+    ]
+
+    rating = rating0.append(pd.DataFrame(coldbooks, columns=['UserID', 'ISBN', 'BookRating']))
+
+    # print(rating['UserID'].where(rating['UserID'] == 1))
+    # print(books_data['BookTitle'].where(books_data[''] == ''))
+
     user = pd.read_csv(StringIO(user_csv_string), sep=';', error_bad_lines=False)
     book = pd.read_csv(StringIO(book_csv_string), sep=';', error_bad_lines=False)
 
-    # rating = pd.read_csv('data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    # user = pd.read_csv('data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
-    # book = pd.read_csv('data/BX-Books.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 
     book_rating = pd.merge(rating, book, on='ISBN')
     cols = ['Year-Of-Publication', 'Publisher', 'Book-Author', 'Image-URL-S', 'Image-URL-M', 'Image-URL-L']
@@ -73,7 +153,7 @@ def runEngine(user_id):
         [['BookTitle', 'RatingCount_book']]
         )
 
-    threshold = 25
+    threshold = 22
     rating_count = rating_count.query('RatingCount_book >= @threshold')
 
     user_rating = pd.merge(rating_count, book_rating, left_on='BookTitle', right_on='BookTitle', how='left')
@@ -86,13 +166,20 @@ def runEngine(user_id):
         )
 
 
-    threshold = 20
+    threshold = 13
     user_count = user_count.query('RatingCount_user >= @threshold')
 
     combined = user_rating.merge(user_count, left_on = 'UserID', right_on = 'UserID', how = 'inner')
 
     scaler = MinMaxScaler()
     combined['BookRating'] = combined['BookRating'].values.astype(float)
+
+
+    # Unique Books 5850
+    # Unique Users 3192
+
+
+    # Tenserflow begins 
     rating_scaled = pd.DataFrame(scaler.fit_transform(combined['BookRating'].values.reshape(-1,1)))
     combined['BookRating'] = rating_scaled
 
@@ -102,6 +189,8 @@ def runEngine(user_id):
     users = user_book_matrix.index.tolist()
     books = user_book_matrix.columns.tolist()
     user_book_matrix = user_book_matrix.to_numpy()
+
+    # print(users['UserID'].where(users['UserID'] == 1))
 
     import tensorflow.compat.v1 as tf
     tf.disable_v2_behavior()
@@ -189,23 +278,19 @@ def runEngine(user_id):
         index_1 = pred_data.set_index(keys).index
         index_2 = combined.set_index(keys).index
 
+
+
         top_ten_ranked = pred_data[~index_1.isin(index_2)]
         top_ten_ranked = top_ten_ranked.sort_values(['UserID', 'BookRating'], ascending=[True, False])
-        top_ten_ranked = top_ten_ranked.groupby('UserID').head(10)
+        top_ten_ranked = top_ten_ranked.groupby('UserID').head(20)
 
-
-
-
-    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == user_id] #user_id #278582
+    result = top_ten_ranked.loc[top_ten_ranked['UserID'] == 1] #user_id #278582
 
     result.insert(0, "id",1, allow_duplicates = False)
     print(result)
     print(result['BookTitle'])
 
     from sqlalchemy import create_engine
-    engine = create_engine('sqlite:////Users/roethelchristine/FinalProject/db.sqlite3', echo=False)
+    engine = create_engine(os.environ['DATABASE_URL'], echo=False)
     result.to_sql('recommender_recommender_book', engine, if_exists='replace')
-
-
-#runEngine(278582)
 

@@ -16,9 +16,11 @@ import django_heroku
 import dj_database_url
 import dotenv
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
@@ -32,12 +34,15 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
+    # SECRET_KEY = os.environ['SECRET_KEY']
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['bookrecommender22.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['bookrec2022.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
 
 # Security
 SECURE_SSL_REDIRECT = False
@@ -96,15 +101,20 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
+}
+
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql'
-#         'NAME': 
-
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+        # 'ENGINE': 'django.db.backends.postgresql'
+        # 'NAME': 
 
 # Commented out SQlite and added Postgresql, using newest release of psycopg, version 3
 # Nvm, 3 has changes that aren't reflected in Django yet, back to 2.
@@ -123,9 +133,9 @@ WSGI_APPLICATION = 'BookRecommender.wsgi.application'
 
 # Meant to allow for Heroku to find it's db while also allowing for sqlite locally
 # Must have .env locally to use!
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-}
+    # DATABASES = {
+    #     'default': dj_database_url.config(conn_max_age=600)
+    # }
 # DATABASES['default'] = dj_database_url.config(default='postgres://...')
 # DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
 
