@@ -10,12 +10,12 @@ AWS S3</br>
 Heroku</br>
 
 Creators:
-https://github.com/TomLafferty
-https://github.com/Efe-C-3
-https://github.com/croethel
+https://github.com/TomLafferty</br>
+https://github.com/Efe-C-3</br>
+https://github.com/croethel</br>
+</br>
 
-
-Maintanance version deployed to:
+Maintanance version deployed to:</br>
 https://bookrecommender22.herokuapp.com/
 
 
