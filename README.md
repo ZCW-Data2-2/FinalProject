@@ -42,7 +42,7 @@ Pandas</br>
 
 ## Local Usage
 
-Book recommender canDjangoX can be installed via Pip. To start, clone the repo to your local computer and change into the proper directory.
+Book recommender can be installed via Pip. To start, clone the repo to your local computer and change into the proper directory.
 
 ```
 $ python3 -m venv bookrec
