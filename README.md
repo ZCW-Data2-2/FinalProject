@@ -12,10 +12,10 @@ Book recommendation system that is able to take 6 different user inputs based on
 Additionally, the book recommendation system can currently search pre-existing users (based on User ID) and render 10 book recommendations based on what similiar users have also reviewed.
 
 ## Screenshots
-<img src="Screenshot1.png" width="25%"></img>
-<img src="Screenshot2.png" width="25%"></img> 
-<img src="Screenshot3.png" width="25%"></img> 
-<img src="Screenshot4.png" width="25%"></img> 
+<img src="Screenshot1.png" width="40%"></img>
+<img src="Screenshot2.png" width="40%"></img> 
+<img src="Screenshot3.png" width="40%"></img> 
+<img src="Screenshot4.png" width="40%"></img> 
 
 
 ## Production
