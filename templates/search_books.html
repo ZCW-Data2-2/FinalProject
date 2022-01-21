@@ -4,11 +4,22 @@
 
 
 {% block content %}
-    <center>
+
+<html>
+    <style>
+        body {
+        background-image: url('https://images.unsplash.com/photo-1598960087461-556c5a1f864a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+        background-size: contain;
+        }
+    </style>
+
+
+<center>
+   <body>
         <form class="d-flex" method="POST" action="{% url 'search-books' %}">
             {% csrf_token %}
             <input class="form-control me-2"
-             type="search" placeholder="Search Books" aria-label="Search" name="searched">
+             type="search" placeholder="Search User ID" aria-label="Search" name="searched">
              <button class="btn btn-outline-secondary" type="submit">Search</button>
         </form>
     
@@ -23,5 +34,5 @@
         <h1>You forgot to search for a book...</h1>
     {% endif %}
     
-    <center>
+
 {% endblock content %}

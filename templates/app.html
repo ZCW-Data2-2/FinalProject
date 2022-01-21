@@ -4,6 +4,38 @@
 {% block content %}
     <center>
 
+<html>
+    <style>
+        body {
+        background-image: url('https://images.unsplash.com/photo-1598960087461-556c5a1f864a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+        background-size: contain;
+        }
+
+        
+        .form-control {
+        width: 300px;
+        fill: none;
+        background: transparent;
+        color: #000;
+        border: none;
+        border-bottom: none;
+
+}
+
+input:focus {
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+    </style>
+<body>
+    <h3>On a scale of 1-10, rate how much you enjoy reading from these categories.<br>
+    1: "I'd never read this junk!"<br>
+    10: "Best books EVER!"</h3><br>
+    <h3>Once you submit your ratings, wait for the librarians that live in our browser to pick their top selections for you!</h3><br><br>
+
+
 <!-- Create Form -->
 <form action="{% url 'app' %}" method="POST">
 {% csrf_token %}
@@ -136,7 +168,7 @@
     <!-- Harry Potter -->
     <div class="form-control">
         <label for="hp" id="hpsel">
-         Harry Potter Series:
+         Harry Potter:
         </label>
  
         <!-- Dropdown options -->
@@ -155,7 +187,7 @@
           <option value=10>10</option>
         </select>
      </div>
-        <br>
+        <br><br><br>
     <input type="submit" value="Submit">
         
     
@@ -172,7 +204,7 @@
             {{ book }}<br/>
         {% endfor %}
     {% else %}
-        <h1>You forgot to search for a book...</h1>
+        <h1>Don't forget to submit your ratings!</h1>
     {% endif %}
     <center>
 {% endblock content %}
