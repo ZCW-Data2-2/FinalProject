@@ -39,5 +39,5 @@ Pandas</br>
 
 
 ## Data set source credit
-https://www.kaggle.com/jirakst/bookcrossing
-(Adjusted column names 'User-ID', 'Book-Rating' and 'Book-Title' to 'UserID', 'BookRating' and 'BookTitle' throughout data set)
+https://www.kaggle.com/jirakst/bookcrossing</br>
+(Adjusted column names 'User-ID', 'Book-Rating' and 'Book-Title' to 'UserID', 'BookRating' and 'BookTitle' in all .csv files)
