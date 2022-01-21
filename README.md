@@ -9,6 +9,12 @@ Postgresql</br>
 AWS S3</br>
 Heroku</br>
 
+Creators:
+https://github.com/TomLafferty
+https://github.com/Efe-C-3
+https://github.com/croethel
+
+
 Maintanance version deployed to:
 https://bookrecommender22.herokuapp.com/
 
