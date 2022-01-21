@@ -81,9 +81,9 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         # Good Omens
         [1, "0441003257", humor],
         # Me Talk Pretty One Day
-        [1, "0316776963", humor]
+        [1, "0316776963", humor],
         # The Catcher in the Rye
-        [1, "0316769487", humor]
+        [1, "0316769487", humor],
         # Rose Madder
         [1, "0451186362", horror],
         # Bag of Bones
