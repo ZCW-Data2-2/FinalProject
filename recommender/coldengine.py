@@ -10,6 +10,7 @@ from dotenv import load_dotenv, find_dotenv
 from io import StringIO
 import dotenv
 
+print(os.environ['aws_access_key_id'])
 
 # rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 # user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
@@ -166,7 +167,7 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         )
 
 
-    threshold = 13
+    threshold = 20
     user_count = user_count.query('RatingCount_user >= @threshold')
 
     combined = user_rating.merge(user_count, left_on = 'UserID', right_on = 'UserID', how = 'inner')
