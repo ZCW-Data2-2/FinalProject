@@ -45,6 +45,7 @@ Book recommender can be installed via Pip. To start, clone the repo to your loca
 $ python3 -m venv bookrec
 $ source bookrec/bin/activate
 (bookrec) $ pip install -r requirements.txt
+(bookrec) $ python manage.py makemigrations
 (bookrec) $ python manage.py migrate
 (bookrec) $ python manage.py createsuperuser
 (bookrec) $ python manage.py runserver
