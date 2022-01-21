@@ -57,6 +57,9 @@ https://www.kaggle.com/jirakst/bookcrossing</br>
 (Adjusted column names 'User-ID', 'Book-Rating' and 'Book-Title' to 'UserID', 'BookRating' and 'BookTitle' in all .csv files)
 
 
-## Initial Wireframe
+## Flowchart
+Initial:</br>
+<img src="final.png" width="22%"></img></br></br>
 
-![Alt text](final.png?raw=true "Title")
+Current:</br>
+<img src="flowchart2.jpeg" width="22%"></img>
