@@ -203,7 +203,7 @@ def runEngine(user_id):
     print(result['BookTitle'])
 
     from sqlalchemy import create_engine
-    engine = create_engine('sqlite:////Users/roethelchristine/FinalProject/db.sqlite3', echo=False)
+    engine = create_engine(os.environ['DATABASE_URL'], echo=False)
     result.to_sql('recommender_recommender_book', engine, if_exists='replace')
 
 
