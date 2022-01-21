@@ -9,14 +9,14 @@ Postgresql</br>
 AWS S3</br>
 Heroku</br>
 
-Creators:
+Creators:</br>
 https://github.com/TomLafferty</br>
 https://github.com/Efe-C-3</br>
 https://github.com/croethel</br>
 </br>
 
 Maintanance version deployed to:</br>
-https://bookrecommender22.herokuapp.com/
+https://bookrecommender22.herokuapp.com/</br>
 
 
 ![Alt text](final.png?raw=true "Title")
