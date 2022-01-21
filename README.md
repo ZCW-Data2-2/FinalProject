@@ -13,8 +13,8 @@ Additionally, the book recommendation system can currently search pre-existing u
 
 ## Screenshots
 <img src="Screenshot1.png" width="40%"></img>
-<img src="Screenshot3.png" width="40%"></img>
 <img src="Screenshot2.png" width="40%"></img> 
+<img src="Screenshot3.png" width="40%"></img>
 <img src="Screenshot4.png" width="40%"></img> 
 
 
