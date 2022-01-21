@@ -36,9 +36,6 @@ Scikit-learn</br>
 Heroku</br>
 Pandas</br>
 
-## Initial Wireframe
-
-![Alt text](final.png?raw=true "Title")
 
 ## Local Usage
 
@@ -58,3 +55,8 @@ $ source bookrec/bin/activate
 ## Data set source credit
 https://www.kaggle.com/jirakst/bookcrossing</br>
 (Adjusted column names 'User-ID', 'Book-Rating' and 'Book-Title' to 'UserID', 'BookRating' and 'BookTitle' in all .csv files)
+
+
+## Initial Wireframe
+
+![Alt text](final.png?raw=true "Title")
