@@ -20,7 +20,7 @@ Additionally, the book recommendation system can currently search pre-existing u
 
 ## Production
 Currently deployed to Heroku, recommendations are currently not functional due to Heroku memory limitations.</br>
-Existing code can be successfully ran locally (note: data set is currently connected to S3 bucket, would need to configure data source/.env)</br>
+Existing code can be successfully ran locally (note: data set is currently connected to S3 bucket, would need to configure dotenv library and .env directory locally)</br>
 
 Maintanance version deployed to:</br>
 https://bookrecommender22.herokuapp.com/</br>
@@ -39,6 +39,20 @@ Pandas</br>
 ## Initial Wireframe
 
 ![Alt text](final.png?raw=true "Title")
+
+## Local Usage
+
+Book recommender canDjangoX can be installed via Pip. To start, clone the repo to your local computer and change into the proper directory.
+
+```
+$ python3 -m venv bookrec
+$ source bookrec/bin/activate
+(djangox) $ pip install -r requirements.txt
+(djangox) $ python manage.py migrate
+(djangox) $ python manage.py createsuperuser
+(djangox) $ python manage.py runserver
+# Load the site at http://127.0.0.1:8000
+```
 
 
 ## Data set source credit
