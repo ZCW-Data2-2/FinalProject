@@ -2,9 +2,9 @@
 <b>A collaborative-based filtering recommendation system. </b>
 
 ## Creators
-https://github.com/TomLafferty</br>
-https://github.com/Efe-C-3</br>
-https://github.com/croethel</br>
+<b>Tom Lafferty:</b> https://github.com/TomLafferty</br>
+<b>Efe Cantekin:</b> https://github.com/Efe-C-3</br>
+<b>Christine Roethel:</b> https://github.com/croethel</br>
 
 ## Project Summary
 Book recommendation system that is able to take 6 different user inputs based on user ratings of book categories and returns a machine learning based recommendation of 20 books identified by similiar existing users behaviors.</br>
