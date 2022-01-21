@@ -1,0 +1,23 @@
+#Virtual environments
+venv
+penv
+environments
+env
+finalbooks/
+
+
+
+.DS_Store
+DS_Store
+.idea
+workspace.xml
+
+# for secret key
+.env
+
+# for data files
+
+data/
+__pychache__/
+__pychache__
+db.sqlite3
