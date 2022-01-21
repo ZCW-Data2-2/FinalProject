@@ -47,10 +47,10 @@ Book recommender canDjangoX can be installed via Pip. To start, clone the repo t
 ```
 $ python3 -m venv bookrec
 $ source bookrec/bin/activate
-(djangox) $ pip install -r requirements.txt
-(djangox) $ python manage.py migrate
-(djangox) $ python manage.py createsuperuser
-(djangox) $ python manage.py runserver
+(bookrec) $ pip install -r requirements.txt
+(bookrec) $ python manage.py migrate
+(bookrec) $ python manage.py createsuperuser
+(bookrec) $ python manage.py runserver
 # Load the site at http://127.0.0.1:8000
 ```
 
