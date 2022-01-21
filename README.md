@@ -7,6 +7,7 @@ Book recommendation system that will identify similiar user behaviors and make r
 Django</br>
 Postgresql</br>
 AWS S3</br>
+TensorFlow</br>
 Heroku</br>
 
 Creators:</br>
