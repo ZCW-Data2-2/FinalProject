@@ -20,7 +20,7 @@ Additionally, the book recommendation system can currently search pre-existing u
 
 ## Production
 Currently deployed to Heroku, recommendations are currently not functional due to Heroku memory limitations.</br>
-Existing code can be successfully ran locally (note: data set is connected to S3 bucket, no need to download source files)</br>
+Existing code can be successfully ran locally (note: data set is currently connected to S3 bucket, would need to configure data source/.env)</br>
 
 Maintanance version deployed to:</br>
 https://bookrecommender22.herokuapp.com/</br>
