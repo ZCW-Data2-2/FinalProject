@@ -17,7 +17,7 @@ import dotenv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 dotenv_file = os.path.join(BASE_DIR, ".env")
-def coldrunEngine(humor, horror, romance, thriller, nonfiction):
+def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
     if os.path.isfile(dotenv_file):
         dotenv.load_dotenv(dotenv_file)
 
@@ -120,6 +120,16 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction):
         [1, "0446677450", nonfiction],
         # Seabiscuit
         [1, "0449005615", nonfiction],
+        # Harry Potter Sorcerers Stone
+        [1, "059035342X", hp],
+        # Harry Potter CoS
+        [1, "0439064872", hp],
+        # Harry Potter PoA
+        [1, "0439136350", hp],
+        # Harry Potter Goblet of Fire
+        [1, "0439139597", hp],
+        # Harry Potter Order of the Pheonix
+        [1, "043935806X", hp],
     ]
 
     rating = rating0.append(pd.DataFrame(coldbooks, columns=['UserID', 'ISBN', 'BookRating']))

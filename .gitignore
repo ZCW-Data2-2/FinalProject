@@ -18,5 +18,6 @@ workspace.xml
 # for data files
 
 data/
-
+__pychache__/
+__pychache__
 db.sqlite3

@@ -3,9 +3,9 @@
 
 {% block content %}
     <center>
-        
+
 <!-- Create Form -->
-<form action="{% url 'search-books' %}" method="POST">
+<form action="{% url 'app' %}" method="POST">
 {% csrf_token %}
     <br>
 
@@ -133,6 +133,29 @@
      </div>
         <br>
 
+    <!-- Harry Potter -->
+    <div class="form-control">
+        <label for="hp" id="hpsel">
+         Harry Potter Series:
+        </label>
+ 
+        <!-- Dropdown options -->
+        
+        <select name="hp" id="hpsel">
+          <option value="" selected disabled hidden>Choose here</option>
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+        </select>
+     </div>
+        <br>
     <input type="submit" value="Submit">
         
     

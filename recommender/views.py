@@ -42,16 +42,17 @@ def app(request):
         romance = request.POST['romance']
         thriller = request.POST['thriller']
         nonfiction = request.POST['nonfiction']
+        hp = request.POST['hp']
         # search_ui = int(search_ui[1])
         # print(humor)
         # print(horror)
         # print(romance)
         # print(thriller)
         # print(nonfiction)
-        coldrunEngine(humor, horror, romance, thriller, nonfiction)
+        coldrunEngine(humor, horror, romance, thriller, nonfiction, hp)
         books = recommender_book.objects.filter(UserID=1)
         return render(request, 'app.html',
-                        {'searched': f"Humor: {humor}\nHorror: {horror}\nRomance: {romance}\n Thriller: {thriller}\n Non-Fiction: {nonfiction}\n",
+                        {'searched': f"Humor: {humor}\n Horror: {horror}\n Romance: {romance}\n Thriller: {thriller}\n Non-Fiction: {nonfiction}\n Harry Potter Books: {hp}",
                          'books': books})
     else:
         return render(request, 'app.html', {})
