@@ -10,7 +10,6 @@ from dotenv import load_dotenv, find_dotenv
 from io import StringIO
 import dotenv
 
-print(os.environ['aws_access_key_id'])
 
 # rating = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Book-Ratings.csv', sep=';', error_bad_lines=False, encoding="latin-1")
 # user = pd.read_csv('/Users/laffertythomas/dev/projects/FinalProject/BookRecommender/recommender/data/BX-Users.csv', sep=';', error_bad_lines=False, encoding="latin-1")
@@ -81,6 +80,10 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         [1, "0385335881", humor],
         # Good Omens
         [1, "0441003257", humor],
+        # Me Talk Pretty One Day
+        [1, "0316776963", humor]
+        # The Catcher in the Rye
+        [1, "0316769487", humor]
         # Rose Madder
         [1, "0451186362", horror],
         # Bag of Bones
@@ -111,6 +114,12 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         [1, "0446607711", thriller],
         # The Deep End of the Ocean
         [1, "0670865796", thriller],
+        # The Lovely Bones
+        [1, "0316666343", thriller],
+        # The Da Vinci Code
+        [1, "0385504209", thriller],
+        # Angels and Demons
+        [1, "0671027360", thriller],
         # I Know Why the Caged Bird Sings
         [1, "0553279378", nonfiction],
         # The Diary of a Young Girl: Anne Frank
@@ -121,6 +130,8 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         [1, "0446677450", nonfiction],
         # Seabiscuit
         [1, "0449005615", nonfiction],
+        # The Secret Life of Bees
+        [1, "0142001740", nonfiction],
         # Harry Potter Sorcerers Stone
         [1, "059035342X", hp],
         # Harry Potter CoS
@@ -131,6 +142,7 @@ def coldrunEngine(humor, horror, romance, thriller, nonfiction, hp):
         [1, "0439139597", hp],
         # Harry Potter Order of the Pheonix
         [1, "043935806X", hp],
+
     ]
 
     rating = rating0.append(pd.DataFrame(coldbooks, columns=['UserID', 'ISBN', 'BookRating']))
