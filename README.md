@@ -1,4 +1,4 @@
-## Book Recommender
+## Book Recommender Application
 <b>A collaborative-based filtering recommendation system. </b>
 
 ## Creators
